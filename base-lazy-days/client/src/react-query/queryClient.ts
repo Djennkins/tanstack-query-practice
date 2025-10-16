@@ -19,7 +19,7 @@ function errorHandler(errorMsg: string) {
 }
 
 export const queryClient = new QueryClient({
-    queryCache: new QueryCache({
-        onError: (error) => errorHandler(error.message),
-    }),
+  queryCache: new QueryCache({
+    onError: (error) => errorHandler(error.message),
+  }),
 });
