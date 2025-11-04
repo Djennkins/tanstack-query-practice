@@ -46,6 +46,10 @@ export function useUser() {
         queryClient.removeQueries({
             queryKey: [queryKeys.user],
         });
+
+        queryClient.removeQueries({
+            queryKey: [queryKeys.appointments, queryKeys.user],
+        });
     }
 
     return { user, updateUser, clearUser };
