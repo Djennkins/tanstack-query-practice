@@ -3,6 +3,7 @@ import { render as RtlRender } from "@testing-library/react";
 import { PropsWithChildren, ReactElement } from "react";
 import { MemoryRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { queryClientOptions } from "@/react-query/queryClient";
 
 // ** FOR TESTING CUSTOM HOOKS ** //
 // from https://tkdodo.eu/blog/testing-react-query#for-custom-hooks
@@ -15,7 +16,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 // make a function to generate a unique query client for each test
 const generateQueryClient = () => {
-    return new QueryClient();
+    queryClientOptions.defaultOptions.queries.retry = false;
+    return new QueryClient(queryClientOptions);
 };
 
 // reference: https://testing-library.com/docs/react-testing-library/setup#custom-render
