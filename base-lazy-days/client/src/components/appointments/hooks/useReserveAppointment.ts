@@ -1,5 +1,5 @@
 import { Appointment } from "@shared/types";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { useLoginData } from "@/auth/AuthContext";
 import { axiosInstance } from "@/axiosInstance";
@@ -20,6 +20,8 @@ async function setAppointmentUser(
 }
 
 export function useReserveAppointment() {
+    const queryClient = useQueryClient();
+
     const { userId } = useLoginData();
 
     const toast = useCustomToast();
@@ -28,6 +30,9 @@ export function useReserveAppointment() {
         mutationFn: (appointment: Appointment) =>
             setAppointmentUser(appointment, userId),
         onSuccess: () => {
+            queryClient.invalidateQueries({
+                queryKey: [queryKeys.appointments],
+            });
             toast({
                 title: "You have reserved appointment!",
                 status: "success",
